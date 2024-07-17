@@ -34,7 +34,7 @@ import (
 //go:generate go run github.com/a-h/templ/cmd/templ@latest generate
 
 var (
-	bind        = flag.String("bind", "localhost:8080", "address to bind to")
+	bind        = flag.String("bind", ":8080", "address to bind to")
 	bucketName  = flag.String("bucket", "how2make-uploads", "s3 bucket name")
 	ollamaHost  = flag.String("ollama-host", "http://gpu-recipeficator.flycast", "ollama host")
 	ollamaModel = flag.String("ollama-model", "llava", "ollama model")
