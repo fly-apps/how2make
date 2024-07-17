@@ -47,6 +47,20 @@ type Server struct {
 	s3  *s3.Client
 }
 
+func (s *Server) NotFound(w http.ResponseWriter, r *http.Request) {
+	slog.Error("not found", "method", r.Method, "path", r.URL.Path)
+	templ.Handler(
+		xess.Base(
+			"404 Not Found",
+			headArea(),
+			nil,
+			NotFound(r.URL.Path),
+			footer(),
+		),
+		templ.WithStatus(http.StatusNotFound),
+	).ServeHTTP(w, r)
+}
+
 func (s *Server) Error(w http.ResponseWriter, r *http.Request, status int, err error, step string) {
 	slog.Error("error", "step", step, "err", err, "method", r.Method, "path", r.URL.Path)
 	templ.Handler(
@@ -104,6 +118,7 @@ func (s *Server) POSTUpload(w http.ResponseWriter, r *http.Request) {
 			s.Error(w, r, http.StatusInternalServerError, err, "upload image to s3")
 			return
 		}
+		slog.Info("uploaded image to s3", "key", shaSumOfImage)
 	} else {
 		slog.Debug("image already exists", "key", shaSumOfImage)
 	}

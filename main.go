@@ -69,7 +69,7 @@ func main() {
 			footer(),
 		),
 	))
-	mux.HandleFunc("/", http.NotFound)
+	mux.HandleFunc("/", s.NotFound)
 	mux.HandleFunc("POST /upload", s.POSTUpload)
 
 	slog.Info("server", "listening", *bind)
