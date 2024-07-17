@@ -1,0 +1,36 @@
+package main
+
+templ headArea() {
+	<style>
+    img {
+        max-width: 24em;
+        margin: auto;
+    }
+    </style>
+}
+
+templ footer() {
+	<p>With love from Wych</p>
+}
+
+templ index() {
+	<p>Upload an image of the sandwich and we'll tell you how to make it!</p>
+	<form action="/upload" method="post" enctype="multipart/form-data">
+		<label for="image">Upload image:</label>
+		<input type="file" id="image" name="image" accept="image/*"/>
+		<input type="submit" value="Upload Image"/>
+	</form>
+}
+
+templ ErrorWhy(why string) {
+	<p>Oh no! There was an error:</p>
+	<p>{ why }</p>
+	<p>Maybe look at the logs?</p>
+}
+
+templ HowToMake(steps templ.Component, imageURL string) {
+	<img src={ imageURL } alt="A sandwich"/>
+	@steps
+	<hr/>
+	<p>Want to make another sandwich? <a href="/">Upload another image.</a></p>
+}
