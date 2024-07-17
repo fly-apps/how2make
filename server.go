@@ -47,16 +47,30 @@ type Server struct {
 	s3  *s3.Client
 }
 
+func (s *Server) Error(w http.ResponseWriter, r *http.Request, status int, err error, step string) {
+	slog.Error("error", "step", step, "err", err, "method", r.Method, "path", r.URL.Path)
+	templ.Handler(
+		xess.Base(
+			"Oh noes!",
+			headArea(),
+			nil,
+			ErrorWhy(step, fmt.Sprintf("%d: %v", status, err)),
+			footer(),
+		),
+		templ.WithStatus(status),
+	).ServeHTTP(w, r)
+}
+
 func (s *Server) POSTUpload(w http.ResponseWriter, r *http.Request) {
 	fileBytes, err := ParseMultipartFile(r)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		s.Error(w, r, http.StatusBadRequest, err, "parse multipart file")
 		return
 	}
 
 	img, _, err := image.Decode(bytes.NewReader(fileBytes))
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		s.Error(w, r, http.StatusBadRequest, err, "decode image")
 		return
 	}
 
@@ -69,7 +83,7 @@ func (s *Server) POSTUpload(w http.ResponseWriter, r *http.Request) {
 	buf := new(bytes.Buffer)
 	err = jpeg.Encode(buf, dstImg, nil)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		s.Error(w, r, http.StatusInternalServerError, err, "encode image as JPEG")
 		return
 	}
 
@@ -87,7 +101,7 @@ func (s *Server) POSTUpload(w http.ResponseWriter, r *http.Request) {
 			ContentType:  aws.String("image/jpeg"),
 			CacheControl: aws.String("public, max-age=31536000"),
 		}); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			s.Error(w, r, http.StatusInternalServerError, err, "upload image to s3")
 			return
 		}
 	} else {
@@ -105,7 +119,7 @@ func (s *Server) POSTUpload(w http.ResponseWriter, r *http.Request) {
 		},
 	})
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		s.Error(w, r, http.StatusInternalServerError, err, "generate instructions")
 		return
 	}
 
@@ -120,7 +134,7 @@ func (s *Server) POSTUpload(w http.ResponseWriter, r *http.Request) {
 		opts.Expires = time.Duration(420 * time.Second)
 	})
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		s.Error(w, r, http.StatusInternalServerError, err, "presign image URL")
 		return
 	}
 

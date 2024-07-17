@@ -17,13 +17,13 @@ templ index() {
 	<p>Upload an image of the sandwich and we'll tell you how to make it!</p>
 	<form action="/upload" method="post" enctype="multipart/form-data">
 		<label for="image">Upload image:</label>
-		<input type="file" id="image" name="image" accept="image/*"/>
+		<input type="file" id="image" name="image" accept="image/*,image/heic"/>
 		<input type="submit" value="Upload Image"/>
 	</form>
 }
 
-templ ErrorWhy(why string) {
-	<p>Oh no! There was an error:</p>
+templ ErrorWhy(step, why string) {
+	<p>Oh no! Something went wrong when trying to { step }.</p>
 	<p>{ why }</p>
 	<p>Maybe look at the logs?</p>
 }
