@@ -14,6 +14,7 @@ require (
 	github.com/gen2brain/webp v0.4.4
 	github.com/gomarkdown/markdown v0.0.0-20240328165702-4d01890c35c0
 	github.com/joho/godotenv v1.5.1
+	golang.org/x/image v0.18.0
 	within.website/x v1.10.1-0.20240709215725-63e4926b55e3
 )
 
@@ -39,6 +40,5 @@ require (
 	github.com/facebookgo/ensure v0.0.0-20200202191622-63f1cf65ac4c // indirect
 	github.com/facebookgo/subset v0.0.0-20200203212716-c811ad88dec4 // indirect
 	github.com/tetratelabs/wazero v1.7.2 // indirect
-	golang.org/x/image v0.18.0 // indirect
 	golang.org/x/sys v0.21.0 // indirect
 )
