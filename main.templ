@@ -2,10 +2,10 @@ package main
 
 templ headArea() {
 	<style>
-    img {
-        max-width: 24em;
-        margin: auto;
-    }
+	img {
+		max-width: 24em;
+		margin: auto;
+	}
 
 	/* CSS */
 	.button {
@@ -35,7 +35,7 @@ templ headArea() {
 		color: #999999;
 		cursor: not-allowed;	
 	}
-    </style>
+	</style>
 }
 
 templ footer() {
@@ -57,18 +57,18 @@ templ index() {
 		const input = document.getElementById("image");
 
 		const previewPhoto = () => {
-    		const file = input.files;
-    		if (file) {
-        		const fileReader = new FileReader();
-        		const preview = document.getElementById("file-preview");
+			const file = input.files;
+			if (file) {
+				const fileReader = new FileReader();
+				const preview = document.getElementById("file-preview");
 				const submit = document.getElementById("submit");
-        		fileReader.onload = event => {
-            		preview.setAttribute("src", event.target.result);
+				fileReader.onload = event => {
+					preview.setAttribute("src", event.target.result);
 					submit.disabled = false;
 					submit.classList.remove("button-disabled");
-        		}
-        		fileReader.readAsDataURL(file[0]);
-    		}
+				}
+				fileReader.readAsDataURL(file[0]);
+			}
 		}
 
 		input.addEventListener("change", previewPhoto);
