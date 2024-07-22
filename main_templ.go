@@ -78,7 +78,7 @@ func index() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>Upload an image of the sandwich and we'll tell you how to make it!</p><form action=\"/upload\" method=\"post\" enctype=\"multipart/form-data\"><label for=\"image\">Upload image:</label> <input type=\"file\" id=\"image\" name=\"image\" accept=\"image/*,image/heic\"> <input type=\"submit\" value=\"Upload Image\"></form>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>Upload an image of the sandwich and we'll tell you how to make it!</p><form action=\"/upload\" method=\"post\" enctype=\"multipart/form-data\"><label for=\"image\">Upload image:</label> <input type=\"file\" id=\"image\" name=\"image\" accept=\"image/*,image/heic\"> <img src=\"#\" alt=\"Preview Uploaded Image\" id=\"file-preview\" style=\"display:none;\"> <input type=\"submit\" value=\"Upload Image\"></form><script>\n\t\tconst input = document.getElementById(\"image\");\n\n\t\tconst previewPhoto = () => {\n    \t\tconst file = input.files;\n    \t\tif (file) {\n        \t\tconst fileReader = new FileReader();\n        \t\tconst preview = document.getElementById(\"file-preview\");\n        \t\tfileReader.onload = event => {\n            \t\tpreview.setAttribute(\"src\", event.target.result);\n\t\t\t\t\tpreview.style = \"display:block;\";\n        \t\t}\n        \t\tfileReader.readAsDataURL(file[0]);\n    \t\t}\n\t\t}\n\n\t\tinput.addEventListener(\"change\", previewPhoto);\n\t</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -111,7 +111,7 @@ func NotFound(path string) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(path)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 26, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 45, Col: 52}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -150,7 +150,7 @@ func ErrorWhy(step, why string) templ.Component {
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(step)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 31, Col: 53}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 50, Col: 53}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
@@ -163,7 +163,7 @@ func ErrorWhy(step, why string) templ.Component {
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(why)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 32, Col: 9}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 51, Col: 9}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 		if templ_7745c5c3_Err != nil {
@@ -202,7 +202,7 @@ func HowToMake(steps templ.Component, imageURL string) templ.Component {
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(imageURL)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 37, Col: 20}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 56, Col: 20}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 		if templ_7745c5c3_Err != nil {

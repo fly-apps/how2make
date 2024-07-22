@@ -36,7 +36,7 @@ import (
 var (
 	bind        = flag.String("bind", ":8080", "address to bind to")
 	bucketName  = flag.String("bucket", "how2make-uploads", "s3 bucket name")
-	ollamaHost  = flag.String("ollama-host", "http://gpu-recipeficator.flycast", "ollama host")
+	ollamaHost  = flag.String("ollama-host", "http://gpu-holy-sunset-3896.flycast", "ollama host")
 	ollamaModel = flag.String("ollama-model", "llava", "ollama model")
 )
 

@@ -1,0 +1,31 @@
+# fly.toml app configuration file generated for gpu-holy-sunset-3896 on 2024-07-17T11:33:20-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'gpu-holy-sunset-3896'
+primary_region = 'ord'
+
+[build]
+image = 'ollama/ollama:latest'
+
+[[mounts]]
+source = 'ollama'
+destination = '/root/.ollama'
+initial_size = '10gb'
+
+[http_service]
+internal_port = 11434
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+
+[[http_service.checks]]
+interval = '30s'
+timeout = '5s'
+grace_period = '10s'
+method = 'GET'
+path = '/'
+
+[[vm]]
+size = 'l40s'

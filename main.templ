@@ -18,8 +18,27 @@ templ index() {
 	<form action="/upload" method="post" enctype="multipart/form-data">
 		<label for="image">Upload image:</label>
 		<input type="file" id="image" name="image" accept="image/*,image/heic"/>
+		<img src="#" alt="Preview Uploaded Image" id="file-preview" style="display:none;"/>
 		<input type="submit" value="Upload Image"/>
 	</form>
+	<script>
+		const input = document.getElementById("image");
+
+		const previewPhoto = () => {
+    		const file = input.files;
+    		if (file) {
+        		const fileReader = new FileReader();
+        		const preview = document.getElementById("file-preview");
+        		fileReader.onload = event => {
+            		preview.setAttribute("src", event.target.result);
+					preview.style = "display:block;";
+        		}
+        		fileReader.readAsDataURL(file[0]);
+    		}
+		}
+
+		input.addEventListener("change", previewPhoto);
+	</script>
 }
 
 templ NotFound(path string) {
