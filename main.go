@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"embed"
 	"flag"
 	"io"
 	"log"
@@ -38,6 +39,9 @@ var (
 	bucketName  = flag.String("bucket", "how2make-uploads", "s3 bucket name")
 	ollamaHost  = flag.String("ollama-host", "http://gpu-holy-sunset-3896.flycast", "ollama host")
 	ollamaModel = flag.String("ollama-model", "llava", "ollama model")
+
+	//go:embed static
+	static embed.FS
 )
 
 func main() {
@@ -71,6 +75,7 @@ func main() {
 	))
 	mux.HandleFunc("/", s.NotFound)
 	mux.HandleFunc("POST /upload", s.POSTUpload)
+	mux.Handle("GET /static/", http.FileServerFS(static))
 
 	slog.Info("server", "listening", *bind)
 	log.Fatal(http.ListenAndServe(*bind, mux))

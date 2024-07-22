@@ -26,7 +26,7 @@ func headArea() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\n    img {\n        max-width: 24em;\n        margin: auto;\n    }\n    </style>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\n    img {\n        max-width: 24em;\n        margin: auto;\n    }\n\n\t/* CSS */\n\t.button {\n\t\tbackground-color: rgba(51, 51, 51, 0.05);\n\t\tborder-radius: 8px;\n\t\tborder-width: 0;\n\t\tcolor: #333333;\n\t\tcursor: pointer;\n\t\tdisplay: inline-block;\n\t\tfont-size: 14px;\n\t\tfont-weight: 500;\n\t\tline-height: 20px;\n\t\tlist-style: none;\n\t\tmargin: 0;\n\t\tpadding: 10px 12px;\n\t\ttext-align: center;\n\t\ttransition: all 200ms;\n\t\tvertical-align: baseline;\n\t\twhite-space: nowrap;\n\t\tuser-select: none;\n\t\t-webkit-user-select: none;\n\t\ttouch-action: manipulation;\n\t}\n\n\t.button-disabled {\n\t\tbackground-color: rgba(51, 51, 51, 0.05);\n\t\tcolor: #999999;\n\t\tcursor: not-allowed;\t\n\t}\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -78,7 +78,20 @@ func index() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>Upload an image of the sandwich and we'll tell you how to make it!</p><form action=\"/upload\" method=\"post\" enctype=\"multipart/form-data\"><label for=\"image\">Upload image:</label> <input type=\"file\" id=\"image\" name=\"image\" accept=\"image/*,image/heic\"> <img src=\"#\" alt=\"Preview Uploaded Image\" id=\"file-preview\" style=\"display:none;\"> <input type=\"submit\" value=\"Upload Image\"></form><script>\n\t\tconst input = document.getElementById(\"image\");\n\n\t\tconst previewPhoto = () => {\n    \t\tconst file = input.files;\n    \t\tif (file) {\n        \t\tconst fileReader = new FileReader();\n        \t\tconst preview = document.getElementById(\"file-preview\");\n        \t\tfileReader.onload = event => {\n            \t\tpreview.setAttribute(\"src\", event.target.result);\n\t\t\t\t\tpreview.style = \"display:block;\";\n        \t\t}\n        \t\tfileReader.readAsDataURL(file[0]);\n    \t\t}\n\t\t}\n\n\t\tinput.addEventListener(\"change\", previewPhoto);\n\t</script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>Upload an image of the sandwich and we'll tell you how to make it!</p><form action=\"/upload\" method=\"post\" enctype=\"multipart/form-data\"><img src=\"/static/800x600.jpeg\" alt=\"Preview Uploaded Image\" id=\"file-preview\" style=\"display:block\"><br><div style=\"display: flex; justify-content: center;\"><input type=\"file\" class=\"button\" id=\"image\" name=\"image\" accept=\"image/*,image/heic\"><div style=\"flex-grow: 1; display: inline-block;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var4 string
+		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(" ")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 52, Col: 58}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><input disabled id=\"submit\" class=\"button button-disabled\" type=\"submit\" value=\"Upload Image\"></div></form><script>\n\t\tconst input = document.getElementById(\"image\");\n\n\t\tconst previewPhoto = () => {\n    \t\tconst file = input.files;\n    \t\tif (file) {\n        \t\tconst fileReader = new FileReader();\n        \t\tconst preview = document.getElementById(\"file-preview\");\n\t\t\t\tconst submit = document.getElementById(\"submit\");\n        \t\tfileReader.onload = event => {\n            \t\tpreview.setAttribute(\"src\", event.target.result);\n\t\t\t\t\tsubmit.disabled = false;\n\t\t\t\t\tsubmit.classList.remove(\"button-disabled\");\n        \t\t}\n        \t\tfileReader.readAsDataURL(file[0]);\n    \t\t}\n\t\t}\n\n\t\tinput.addEventListener(\"change\", previewPhoto);\n\t</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -99,21 +112,21 @@ func NotFound(path string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var4 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var4 == nil {
-			templ_7745c5c3_Var4 = templ.NopComponent
+		templ_7745c5c3_Var5 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var5 == nil {
+			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>Sorry, we couldn't find the page at <code>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var5 string
-		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(path)
+		var templ_7745c5c3_Var6 string
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(path)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 45, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 79, Col: 52}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -138,21 +151,21 @@ func ErrorWhy(step, why string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var6 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var6 == nil {
-			templ_7745c5c3_Var6 = templ.NopComponent
+		templ_7745c5c3_Var7 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var7 == nil {
+			templ_7745c5c3_Var7 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>Oh no! Something went wrong when trying to ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var7 string
-		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(step)
+		var templ_7745c5c3_Var8 string
+		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(step)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 50, Col: 53}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 84, Col: 53}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -160,12 +173,12 @@ func ErrorWhy(step, why string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var8 string
-		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(why)
+		var templ_7745c5c3_Var9 string
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(why)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 51, Col: 9}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 85, Col: 9}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -190,25 +203,25 @@ func HowToMake(steps templ.Component, imageURL string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var9 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var9 == nil {
-			templ_7745c5c3_Var9 = templ.NopComponent
+		templ_7745c5c3_Var10 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var10 == nil {
+			templ_7745c5c3_Var10 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img src=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<center><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var10 string
-		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(imageURL)
+		var templ_7745c5c3_Var11 string
+		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(imageURL)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 56, Col: 20}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `main.templ`, Line: 90, Col: 28}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"A sandwich\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"A sandwich\"></center>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
